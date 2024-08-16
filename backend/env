@@ -1,0 +1,11 @@
+PORT=8000
+NODE_ENV='development'
+
+# Database connection
+HOST='localhost'
+USER='root'
+PASSWORD=''
+DBNAME='memberapp'
+
+# JWT
+ACCESS_TOKEN = hJJSiihSJKHKJHS/>>S>ouhuhjSBs0((&S&hJKSKJJSHKJSH))
