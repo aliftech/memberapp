@@ -4,7 +4,6 @@ import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const pathname = usePathname(); // Get the current pathname
 
     const isActive = (path: string) => pathname === path;
