@@ -21,7 +21,7 @@ const SigninForm = () => {
   const [message, setMessage] = useState('');
 
   const access_token = localStorage.getItem('access_token');
-  if (access_token) redirect('/dashboard');
+  if (access_token) redirect('/article');
 
   const SigninProcess = async (): Promise<SigninStatus> => {
     const response = await fetch('http://localhost:8000/signin', {
