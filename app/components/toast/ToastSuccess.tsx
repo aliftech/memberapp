@@ -7,7 +7,7 @@ interface ToastSuccessProps {
 
 const ToastSuccess: React.FC<ToastSuccessProps> = ({value}) => {
   return (
-    <div className="fixed top-4 right-4 w-full md:w-1/3 bg-green-100 text-green-600 p-4 rounded-lg shadow-lg flex items-center z-50">
+    <div className="mt-3 mb-3 bg-green-100 text-green-600 p-4 rounded-lg shadow-lg flex items-center z-50">
         <svg
             className="w-6 h-6 mr-2 text-green-600"
             fill="none"

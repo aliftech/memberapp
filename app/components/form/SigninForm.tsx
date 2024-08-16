@@ -6,8 +6,6 @@ import { redirect } from 'next/navigation';
 
 interface SigninStatus {
     status: boolean;
-    success: boolean;
-    error?: boolean;
     message: string;
     data?: {
         access_token: string;
@@ -74,47 +72,16 @@ const SigninForm = () => {
   return (
     <div>
         <form className="space-y-4">
-            <div>
-                <label className="mb-2  dark:text-gray-400 text-lg">Email</label>
-                <input
-                    className="border p-3 dark:bg-gray-200 dark:text-gray-800  dark:border-gray-700 shadow-md placeholder:text-base focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </div>
-                    
-            <div>
-                <label className="mb-2 dark:text-gray-400 text-lg">Password</label>
-                <input
-                    id="password"
-                    className="border p-3 shadow-md dark:bg-gray-200 dark:text-gray-800  dark:border-gray-700 placeholder:text-base focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </div>
-            
-            <a
-                className="group text-blue-400 transition-all duration-100 ease-in-out"
-                href="#"
-            >
-                <span
-                    className="bg-left-bottom bg-gradient-to-r text-sm from-blue-400 to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out"
-                >
-                    Forget your password?
-                </span>
-            </a>
-            
-            <button
-                className="bg-gradient-to-r dark:text-gray-300 from-blue-500 to-purple-500 shadow-lg mt-6 p-2 text-white rounded-lg w-full hover:scale-105 hover:from-purple-500 hover:to-blue-500 transition duration-300 ease-in-out"
-                onClick={HandleSignin}
-            >
-                Signin
-            </button>
-        </form>      
+          <header className="mb-3 text-2xl font-bold">Signin</header>
+          <div className="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+            <input type="email" placeholder="Email or username" className="my-3 w-full border-none bg-transparent outline-none focus:outline-none dark:text-gray-800" value={email} onChange={(e) => setEmail(e.target.value)} />
+          </div>
+          <div className="flex w-full items-center space-x-2 rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+            <input type="password" placeholder="Password" className="my-3 w-full border-none bg-transparent outline-none dark:text-gray-800" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <a href="#" className="font-medium text-gray-400 hover:text-gray-500">FORGOT?</a>
+          </div>
+          <button className="w-full rounded-2xl border-b-4 border-b-blue-600 bg-blue-500 py-3 font-bold text-white hover:bg-blue-400 active:translate-y-[0.125rem] active:border-b-blue-400" onClick={HandleSignin}>SIGNIN</button>
+        </form>    
         {showError && <ToastError value={message} />}
         {showSuccess && <ToastSuccess value={message} />}
     </div>
