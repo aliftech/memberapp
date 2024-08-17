@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Videos.init({
     title: DataTypes.STRING,
     source: DataTypes.STRING,
+    thumbnail: DataTypes.STRING,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
     deletedAt: DataTypes.DATE

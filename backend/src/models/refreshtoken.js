@@ -10,16 +10,16 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      RefreshToken.belongsTo(models.User, {
-        foreignKey: 'user_id',
-        as: 'user'
-      });
+      // define association here
     }
   }
   RefreshToken.init({
     user_id: DataTypes.INTEGER,
     refresh_token: DataTypes.STRING,
-    expiredAt: DataTypes.DATE
+    expiredAt: DataTypes.DATE,
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
+    deletedAt: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'RefreshToken',

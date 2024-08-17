@@ -1,12 +1,19 @@
 'use client';
 import React, { useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname(); // Get the current pathname
+    const router = useRouter();
 
     const isActive = (path: string) => pathname === path;
+
+    const signOut = () => {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        router.push('/'); // Use router.push instead of redirect
+    }
 
     return (
         <div className="min-h-full">
@@ -20,26 +27,36 @@ const Navbar = () => {
                         </div>
                         <div className="hidden md:block">
                             <div className="ml-4 flex items-center md:ml-6">
-
-                                {/* Profile dropdown */}
                                 <div className="relative ml-3">
                                     <div className="hidden md:block">
                                         <div className="ml-10 flex items-baseline space-x-4">
                                             <a href="/article" className={`rounded-md px-3 py-2 text-sm font-medium ${isActive('/article') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>Article</a>
                                             <a href="/video" className={`rounded-md px-3 py-2 text-sm font-medium ${isActive('/video') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>Video</a>
+                                            <button 
+                                                onClick={signOut} 
+                                                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-red"
+                                            >
+                                                Sign Out
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="-mr-2 flex md:hidden">
-                            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} type="button" className="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" aria-controls="mobile-menu" aria-expanded={isMobileMenuOpen}>
+                            <button 
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+                                type="button" 
+                                className="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" 
+                                aria-controls="mobile-menu" 
+                                aria-expanded={isMobileMenuOpen}
+                            >
                                 <span className="sr-only">Open main menu</span>
-                                <svg className={`${isMobileMenuOpen ? 'hidden' : 'block'} h-6 w-6`} fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                                <svg className={`${isMobileMenuOpen ? 'hidden' : 'block'} h-6 w-6`} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
-                                <svg className={`${isMobileMenuOpen ? 'block' : 'hidden'} h-6 w-6`} fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                <svg className={`${isMobileMenuOpen ? 'block' : 'hidden'} h-6 w-6`} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
                         </div>
@@ -50,8 +67,14 @@ const Navbar = () => {
                 {isMobileMenuOpen && (
                     <div className="md:hidden" id="mobile-menu">
                         <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                            <a href="/article" className={`rounded-md px-3 py-2 text-sm font-medium ${isActive('/article') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>Article</a>
-                            <a href="/video" className={`rounded-md px-3 py-2 text-sm font-medium ${isActive('/video') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>Video</a>
+                            <a href="/article" className={`block rounded-md px-3 py-2 text-base font-medium ${isActive('/article') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>Article</a>
+                            <a href="/video" className={`block rounded-md px-3 py-2 text-base font-medium ${isActive('/video') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>Video</a>
+                            <button 
+                                onClick={signOut} 
+                                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-red"
+                            >
+                                Sign Out
+                            </button>
                         </div>
                     </div>
                 )}

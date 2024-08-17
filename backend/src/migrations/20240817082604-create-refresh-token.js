@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('refreshtokens', {
+    await queryInterface.createTable('RefreshTokens', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,31 +11,31 @@ module.exports = {
       },
       user_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull:true,
       },
       refresh_token: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull:true,
       },
       expiredAt: {
         type: Sequelize.DATE,
-        allowNull: true,
+        allowNull:true,
       },
       createdAt: {
-        allowNull: true,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull:true,
       },
       updatedAt: {
-        allowNull: true,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull:true,
       },
       deletedAt: {
-        allowNull: true,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull:true,
       }
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('refreshtokens');
+    await queryInterface.dropTable('RefreshTokens');
   }
 };

@@ -25,7 +25,7 @@ const getAllArticles = async (req, res) => {
             }
         });
 
-        if (!user_data) return res.status(404).json(createResponse('No user found'));
+        if (!user_data) return res.status(404).json(createResponse.error('No user found'));
 
         if (user_data.membership_type == 'A') {
             // Get data article

@@ -65,7 +65,7 @@ const signin = async (req, res) => {
             where: {
                 email: email
             }
-         });
+        });
 
         if (!user) return res.status(404).json(createResponse.error('User not found'));
         
@@ -73,7 +73,7 @@ const signin = async (req, res) => {
         if (!comparePass) return res.status(401).json(createResponse.error('Wrong password'));
 
         const accessToken = jwt.sign({ id: user.id, username: user.email }, process.env.ACCESS_TOKEN, {
-            expiresIn: '1h'
+            expiresIn: '1m'
         });
 
         const refreshToken = jwt.sign({ id: user.id, username: user.email }, process.env.ACCESS_TOKEN, {
@@ -81,21 +81,23 @@ const signin = async (req, res) => {
         });
 
         if (accessToken && refreshToken) {
-            // Check refrsh token data based on user_id
-            token = RefreshToken.findOne({
+            // Check refresh token data based on user_id
+            let token = await RefreshToken.findOne({
                 where: {
                     user_id: user.id
                 }
             });
 
-            if(token) {
+            const expirationTime = new Date();
+            expirationTime.setDate(expirationTime.getDate() + 1);
+
+            if (token) {
                 // Update refresh_token data
-                const expirationTime = new Date();
-                expirationTime.setDate(expirationTime.getDate() + 1);
                 await RefreshToken.update(
                     {
                         refresh_token: refreshToken, // Assuming you have a new refresh token generated
-                        expiredAt: expirationTime
+                        expiredAt: expirationTime,
+                        updatedAt: new Date()
                     },
                     {
                         where: {
@@ -103,25 +105,25 @@ const signin = async (req, res) => {
                         }
                     }
                 );
+                
             } else {
                 // Store refresh_token data
-                const expirationTime = new Date();
-                expirationTime.setDate(expirationTime.getDate() + 1);
                 await RefreshToken.create({
                     user_id: user.id,
                     refresh_token: refreshToken,
                     expiredAt: expirationTime
                 });
             }
-            
+
             return res.status(200).json(createResponse.success('Login success', { 'access_token': accessToken, 'refresh_token': refreshToken }));
         } else {
             return res.status(400).json(createResponse.error('Failed to generate token. Please try again'));
         }
     } catch (error) {
+        console.error('Signin Error:', error); // Log the error for debugging
         return res.status(500).json(createResponse.error('Server error', error.message));
     }
-}
+};
 
 const refresh_token = async (req, res) => {
     try {
