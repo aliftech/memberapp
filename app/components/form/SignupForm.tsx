@@ -33,6 +33,17 @@ const SignupForm: React.FC = () => {
         window.location.href = googleAuthUrl;
     };
 
+    const handleFacebookLogin = () => {
+        const clientId = "EAAMVsyfPYC4BO3ZAZBr1qELvLWEmAgZA0ZBt9IwMZCGM0mUzm55E8ZBrkLcArkWCdZCCHygxpgVWminS2QB7bLxrmQvLOCXZASPYQGIEvCfPni5WZBjBXmD6WvC6slMdMRWHKH3GJubyYLlq1wKcCshG5uu3pWsXHAsRH00P9SkJOKB8vSL45sUA1uRitVkmZAmeyVlVgoJEy0IxAmf05ZBdZAlmOCevCeYpXsc4XCzb19pJjbXfbc8ZAAzNuMZCTP8eudxQZDZD"; // Replace with your actual Facebook App ID
+        const redirectUri = 'http://localhost:3000/auth/facebook/callback';
+        const scope = 'email public_profile'; // Request email and public profile permissions
+        const responseType = 'code';
+  
+        const facebookAuthUrl = `https://www.facebook.com/v12.0/dialog/oauth?client_id=${clientId}&scope=${encodeURIComponent(scope)}&response_type=${responseType}&redirect_uri=${encodeURIComponent(redirectUri)}`;
+  
+        window.location.href = facebookAuthUrl;
+    };
+
     const SignupProcess = async (): Promise<SignupStatus> => {
         const response = await fetch('http://localhost:8000/signup', {
             method: 'POST',
@@ -188,7 +199,7 @@ const SignupForm: React.FC = () => {
 
             <footer>
                 <div className="grid grid-cols-2 gap-4">
-                    <button className="flex items-center justify-center rounded-2xl border-b-2 border-b-gray-300 bg-white px-4 py-2.5 font-bold text-blue-700 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200 text-sm sm:text-base md:text-lg">
+                    <button onClick={handleFacebookLogin} className="flex items-center justify-center rounded-2xl border-b-2 border-b-gray-300 bg-white px-4 py-2.5 font-bold text-blue-700 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200 text-sm sm:text-base md:text-lg">
                         FACEBOOK
                     </button>
                     <button onClick={handleGoogleLogin} className="flex items-center justify-center rounded-2xl border-b-2 border-b-gray-300 bg-white px-4 py-2.5 font-bold text-blue-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200 text-sm sm:text-base md:text-lg">
