@@ -2,7 +2,15 @@ This application purpose to complete my recruitment process. This app is made us
 
 ## Getting Started
 
-First, run the development server:
+Install all the necessary dependencies by using the following command:
+
+```bash
+npm install
+```
+
+After that, copy the env file and rename into .env.local
+
+Then, run the development server:
 
 ```bash
 npm run dev

@@ -16,6 +16,16 @@ In this documentation we will focus on talking about our backend system. The fro
 8. mysql2 version 3.11.0
 9. sequelize version 6.37.3
 
+## installation & Setup
+
+First of all, you need to install all of the necessary dependencies using by using the following command:
+
+```bash
+npm install
+```
+
+then, copy the env file and rename into .env
+
 ## Create a Migration
 
 ```bash
