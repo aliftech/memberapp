@@ -19,8 +19,14 @@ In this documentation we will focus on talking about our backend system. The fro
 ## Create a Migration
 
 ```bash
+cd src
+```
+
+```bash
 npx sequelize-cli model:generate --name User --attributes first_name:string,last_name:string,email:string,membership_type:string,password:string,created_at:datetime,updated_at:datetime,deleted_at:datetime
 ```
+
+change the attibutes with your necessary attributes
 
 ## Running Migration
 
@@ -62,4 +68,10 @@ npx sequelize-cli db:seed:all --env test
 
 ```bash
 npm test
+```
+
+## Running This Project
+
+```bash
+npm start
 ```
